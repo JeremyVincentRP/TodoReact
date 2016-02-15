@@ -1,19 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-//import TodoApp from './TodoApp'
+import { TodoApp } from './TodoApp.js'
 
-ITEMS = [
-  {name: "task 1"},
-  {name: "task 2"},
-  {name: "task 3"},
-  {name: "task 4"},
-  {name: "task 5"}
-]
+////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Render TodoApp
 
 ReactDOM.render(
-//  <TodoApp items={ITEMS} />,
-  <div>hello</div>,
-  document.getElementById('app')
+  <TodoApp />,
+  document.getElementById('content')
 )
+
+////////////////////////////////////////////////////////////////////////////////
 
