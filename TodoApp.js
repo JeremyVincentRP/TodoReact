@@ -1,13 +1,5 @@
 import React from 'react'
 
-  var ITEMS = [
-    {id: 1, text: "task 1"},
-    {id: 2, text: "task 2"},
-    {id: 3, text: "task 3"},
-    {id: 4, text: "task 4"},
-    {id: 5, text: "task 5"}
-  ]
-
 class TodoList extends React.Component {
   render () {
     let createItem = (item) => {
