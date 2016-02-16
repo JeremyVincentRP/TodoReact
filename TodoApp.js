@@ -4,8 +4,9 @@ class TodoList extends React.Component {
 
   render = () => {
     let createItem = (item) => {
-      return  <li onClick={this.props.delete(item.id)} key={item.id}>
-                {item.text}
+      return  <li className='list-elem' key={item.id}>
+                <button onClick={this.props.delete(item.id)}>[X]</button>
+                <span>{item.text}</span>
               </li>
     }
     return <ul>{this.props.todos.map(createItem)}</ul>
@@ -43,7 +44,7 @@ export class TodoApp extends React.Component {
         <TodoList todos={this.state.todos} delete={::this.delTodo} />
         <form onSubmit={::this.addTodo}>
           <input onChange={::this.onInputChange} value={this.state.input} />
-          <button>{'Add todo #' + (this.state.todos.length + 1)}</button>
+          <button>{'Add ' + (this.state.todos.length + 1)}</button>
         </form>
       </div>
     )
