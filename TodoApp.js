@@ -33,7 +33,7 @@ export class TodoApp extends React.Component {
         <TodoList todos={this.state.todos} />
         <form onSubmit={::this.addTodo}>
           <input onChange={::this.onInputChange} value={this.state.input} />
-          <button>{'Add #' + (this.state.todos.length + 1)}</button>
+          <button>{'Add todo #' + (this.state.todos.length + 1)}</button>
         </form>
       </div>
     )
