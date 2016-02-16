@@ -23,11 +23,10 @@ export class TodoApp extends React.Component {
       { id: this.state.id+1, text: this.state.input }
     ])
     this.state.id = this.state.id + 1
-    let reset = ''
-    this.setState({ todos: newTodos, input: reset })
+    this.setState({ todos: newTodos, input: '' })
   }
 
-  render = (e) => {
+  render = () => {
     return (
       <div>
         <h3>Todo-List</h3>
