@@ -1,12 +1,16 @@
 import React from 'react'
 
 class TodoList extends React.Component {
-  render () {
+
+  render = () => {
     let createItem = (item) => {
-      return <li key={item.id}>{item.text}</li>
+      return  <li onClick={this.props.delete(item.id)} key={item.id}>
+                {item.text}
+              </li>
     }
     return <ul>{this.props.todos.map(createItem)}</ul>
   }
+
 }
 
 export class TodoApp extends React.Component {
@@ -15,6 +19,12 @@ export class TodoApp extends React.Component {
 
   onInputChange = (e) => {
     this.setState({ input: e.target.value })
+  }
+
+  delTodo = (id) => (e) => {
+    e.preventDefault()
+    let newTodos = this.state.todos.filter((obj) => id !== obj.id)
+    this.setState({ todos: newTodos })
   }
 
   addTodo = (e) => {
@@ -30,7 +40,7 @@ export class TodoApp extends React.Component {
     return (
       <div>
         <h3>Todo-List</h3>
-        <TodoList todos={this.state.todos} />
+        <TodoList todos={this.state.todos} delete={::this.delTodo} />
         <form onSubmit={::this.addTodo}>
           <input onChange={::this.onInputChange} value={this.state.input} />
           <button>{'Add todo #' + (this.state.todos.length + 1)}</button>
