@@ -14,7 +14,6 @@ const TodoList = ({del, update, todos}) => {
               ? todos.map(createItem)
               : 'No todo'}
           </div>
-
 }
 
 TodoList.propTypes = {

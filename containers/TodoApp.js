@@ -5,9 +5,9 @@ import TodoList from './../components/TodoList'
 import './TodoApp.css'
 
 // Filters
-  const filterAll = obj => true
-  const filterTrue = obj => obj.status === true
-  const filterFalse = obj => obj.status === false
+const filterAll = obj => true
+const filterTrue = obj => obj.status === true
+const filterFalse = obj => obj.status === false
 /////////////////////////////////
 
 export class TodoApp extends React.Component {
