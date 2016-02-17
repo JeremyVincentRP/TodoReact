@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "React todos",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "./node_modules/mocha/bin/mocha tests/test.js --compilers js:babel-core/register --require ignore-styles"
   },
   "repository": {
     "type": "git",
@@ -32,7 +33,10 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-react-hmre": "^1.0.1",
     "expect": "^1.6.0",
+    "expect-jsx": "^2.3.0",
     "express": "^4.13.3",
+    "ignore-styles": "^1.2.0",
+    "mocha": "^2.4.5",
     "node-libs-browser": "^0.5.2",
     "webpack": "^1.9.11",
     "webpack-dev-middleware": "^1.2.0",

@@ -5,14 +5,16 @@ import TodoList from './../components/TodoList'
 import './TodoApp.css'
 
 // Filters
-const filterAll = obj => true
-const filterTrue = obj => obj.status === true
-const filterFalse = obj => obj.status === false
+const filter = {
+  filterAll: obj => true,
+  filterTrue: obj => obj.status === true,
+  filterFalse: obj => obj.status === false
+}
 /////////////////////////////////
 
 export class TodoApp extends React.Component {
 
-  state = { todos: [], filter: filterAll }
+  state = { todos: [], filter: 'filterAll' }
   id = 0
 
   addTodo = (e) => {
@@ -48,14 +50,14 @@ export class TodoApp extends React.Component {
 
   render = () => {
     const todoProps = {
-      todos:  this.state.todos.filter(this.state.filter),
+      todos:  this.state.todos.filter(filter[this.state.filter]),
       del:    this.deleteTodo,
       update: this.updateTodoStatus
     }
 
-    const classNameFilterAll = 'btn todoFilter' + (this.state.filter == filterAll ? ' active' : '')
-    const classNameFilterTrue = 'btn btn-success todoFilter' + (this.state.filter == filterTrue ? ' active' : '')
-    const classNameFilterFalse = 'btn btn-danger todoFilter' + (this.state.filter == filterFalse ? ' active' : '')
+    const classNameFilterAll = 'btn todoFilter' + (this.state.filter == 'filterAll' ? ' active' : '')
+    const classNameFilterTrue = 'btn btn-success todoFilter' + (this.state.filter == 'filterTrue' ? ' active' : '')
+    const classNameFilterFalse = 'btn btn-danger todoFilter' + (this.state.filter == 'filterFalse' ? ' active' : '')
 
     return (
       <div className='container'>
@@ -66,9 +68,9 @@ export class TodoApp extends React.Component {
           <button className='btn btn-primary btn-xs' onClick={this.addTodo}>Add</button>
         </form>
 
-        <button onClick={this.filterTodo(filterAll)} className={classNameFilterAll}>⭑</button>
-        <button onClick={this.filterTodo(filterTrue)} className={classNameFilterTrue}>⭑</button>
-        <button onClick={this.filterTodo(filterFalse)} className={classNameFilterFalse}>⭑</button>
+        <button onClick={this.filterTodo('filterAll')} className={classNameFilterAll}>⭑</button>
+        <button onClick={this.filterTodo('filterTrue')} className={classNameFilterTrue}>⭑</button>
+        <button onClick={this.filterTodo('filterFalse')} className={classNameFilterFalse}>⭑</button>
 
         <div className='well center-block'>
           <TodoList {...todoProps} />
