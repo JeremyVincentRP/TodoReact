@@ -7,7 +7,7 @@ import { TodoApp } from './containers/TodoApp'
 // Render TodoApp
 
 ReactDOM.render(
-  <TodoApp />,
+  <TodoApp source="/todos" />,
   document.getElementById('content')
 )
 

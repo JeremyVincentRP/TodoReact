@@ -30,6 +30,24 @@ export class TodoApp extends React.Component {
     this.setState({ todos: newTodos, input: '' })
   }
 
+  componentDidMount = () => {
+    const get = (url) => {
+      this.HttpReq = new XMLHttpRequest()
+      this.HttpReq.open('GET', url, true)
+      this.HttpReq.onload = (e) => {
+        let json = JSON.parse(this.HttpReq.responseText)
+        this.setState({ todos: json })
+        this.id = json.length
+      }
+      this.HttpReq.send(null)
+    }
+    get(this.props.source)
+  }
+
+  componentWillUnmount = () => {
+    this.HttpReq.abort()
+  }
+
   deleteTodo = (id) => (e) => {
     e.preventDefault()
     const newTodos = this.state.todos.filter((obj) => obj.id !== id)

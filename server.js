@@ -14,6 +14,16 @@ app.get("/", function(req, res) {
   res.sendFile(__dirname + '/index.html')
 })
 
+app.get("/todos", function (req, res) {
+  var data = [
+      { id: 0, text: "Hello", status: false },
+      { id: 1, text: "World", status: true },
+      { id: 2, text:     "!", status: false }
+  ]
+  res.setHeader('Content-Type', 'application/json')
+  res.send(JSON.stringify(data))
+})
+
 app.listen(port, function(error) {
   if (error) {
     console.error(error)
@@ -21,4 +31,3 @@ app.listen(port, function(error) {
     console.info("==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.", port, port)
   }
 })
-
