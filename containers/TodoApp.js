@@ -2,6 +2,8 @@ import React,{PropTypes} from 'react'
 
 import TodoList from './../components/TodoList'
 
+import {addTodo} from '../actions'
+
 import './TodoApp.css'
 
 // Filters
@@ -14,39 +16,54 @@ const filter = {
 
 export class TodoApp extends React.Component {
 
-  state = { todos: [], filter: 'filterAll' }
-  id = 0
+  state = {}
+
+  // addTodo = (e) => {
+  //   e.preventDefault()
+  //   const inputElem = e.currentTarget.parentNode.childNodes[0]
+  //   const value = inputElem.value.trim()
+  //   if (!value || value === '') return
+  //   const newTodos = this.state.todos.concat([
+  //     { id: this.id+1, text: value, status: false }
+  //   ])
+  //   inputElem.value = ''
+  //   this.id = this.id + 1
+  //   this.setState({ todos: newTodos, input: '' })
+  // }
 
   addTodo = (e) => {
     e.preventDefault()
     const inputElem = e.currentTarget.parentNode.childNodes[0]
     const value = inputElem.value.trim()
-    if (!value || value === '') return
-    const newTodos = this.state.todos.concat([
-      { id: this.id+1, text: value, status: false }
-    ])
-    inputElem.value = ''
-    this.id = this.id + 1
-    this.setState({ todos: newTodos, input: '' })
+
+    this.props.store.dispatch(addTodo({text: value}))
   }
 
-  componentDidMount = () => {
-    const get = (url) => {
-      this.HttpReq = new XMLHttpRequest()
-      this.HttpReq.open('GET', url, true)
-      this.HttpReq.onload = (e) => {
-        let json = JSON.parse(this.HttpReq.responseText)
-        this.setState({ todos: json })
-        this.id = json.length
-      }
-      this.HttpReq.send(null)
-    }
-    get(this.props.source)
+  componentWillMount = () => {
+    const {store} = this.props
+    store.subscribe(() => {
+      const state = store.getState()
+      this.setState({todos: state.todos, filter: state.filter})
+    })
   }
-
-  componentWillUnmount = () => {
-    this.HttpReq.abort()
-  }
+  //
+  // componentWillMount = () => {
+  //   const get = (url) => {
+  //     this.HttpReq = new XMLHttpRequest()
+  //     this.HttpReq.open('GET', url, true)
+  //     this.HttpReq.onload = (e) => {
+  //       let json = JSON.parse(this.HttpReq.responseText)
+  //       this.setState({ todos: json })
+  //       this.id = json.length
+  //     }
+  //     this.HttpReq.send(null)
+  //   }
+  //   get(this.props.source)
+  // }
+  //
+  // componentWillUnmount = () => {
+  //   this.HttpReq.abort()
+  // }
 
   deleteTodo = (id) => (e) => {
     e.preventDefault()

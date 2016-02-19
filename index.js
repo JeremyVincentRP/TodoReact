@@ -1,13 +1,22 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import {createStore} from 'redux'
+
+import todoReducer from './reducers/reducer'
 import { TodoApp } from './containers/TodoApp'
 
+////////////////////////////////////////////////////////////////////////////////
+// Store creation
+const store = createStore(
+  todoReducer,
+  {}
+)
 ////////////////////////////////////////////////////////////////////////////////
 // Render TodoApp
 
 ReactDOM.render(
-  <TodoApp source="/todos" />,
+  <TodoApp store={store} />,
   document.getElementById('content')
 )
 
