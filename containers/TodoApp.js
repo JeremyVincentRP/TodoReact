@@ -1,13 +1,21 @@
 import React,{PropTypes} from 'react'
 
 import TodoList from './../components/TodoList'
+import TodoInput from './../components/TodoInput'
+import TodoFilter from './../components/TodoFilters'
 
-import {addTodo} from '../actions'
+import {
+  addTodo,
+  delTodo,
+  updateStatus,
+  updateFilter,
+  updateInput
+} from '../actions'
 
 import './TodoApp.css'
 
 // Filters
-const filter = {
+export const filter = {
   filterAll: obj => true,
   filterTrue: obj => obj.status === true,
   filterFalse: obj => obj.status === false
@@ -18,98 +26,60 @@ export class TodoApp extends React.Component {
 
   state = {}
 
-  // addTodo = (e) => {
-  //   e.preventDefault()
-  //   const inputElem = e.currentTarget.parentNode.childNodes[0]
-  //   const value = inputElem.value.trim()
-  //   if (!value || value === '') return
-  //   const newTodos = this.state.todos.concat([
-  //     { id: this.id+1, text: value, status: false }
-  //   ])
-  //   inputElem.value = ''
-  //   this.id = this.id + 1
-  //   this.setState({ todos: newTodos, input: '' })
-  // }
-
-  addTodo = (e) => {
-    e.preventDefault()
-    const inputElem = e.currentTarget.parentNode.childNodes[0]
-    const value = inputElem.value.trim()
-
-    this.props.store.dispatch(addTodo({text: value}))
-  }
-
   componentWillMount = () => {
     const {store} = this.props
     store.subscribe(() => {
       const state = store.getState()
-      this.setState({todos: state.todos, filter: state.filter})
+      this.setState(
+        { todos: state.todos, filter: state.filter, input: state.input }
+      )
     })
-  }
-  //
-  // componentWillMount = () => {
-  //   const get = (url) => {
-  //     this.HttpReq = new XMLHttpRequest()
-  //     this.HttpReq.open('GET', url, true)
-  //     this.HttpReq.onload = (e) => {
-  //       let json = JSON.parse(this.HttpReq.responseText)
-  //       this.setState({ todos: json })
-  //       this.id = json.length
-  //     }
-  //     this.HttpReq.send(null)
-  //   }
-  //   get(this.props.source)
-  // }
-  //
-  // componentWillUnmount = () => {
-  //   this.HttpReq.abort()
-  // }
-
-  deleteTodo = (id) => (e) => {
-    e.preventDefault()
-    const newTodos = this.state.todos.filter((obj) => obj.id !== id)
-    this.setState({ todos: newTodos })
+    //////////////////////////////////////////////////////////////////
+    // In theory this is useless
+    this.setState( store.getState() )
+    //////////////////////////////////////////////////////////////////
   }
 
-  updateTodoStatus = (id) => (e) => {
-    e.preventDefault()
-    let todo = this.state.todos.find((obj) => obj.id === id)
-    todo.status = !todo.status
-    this.setState({ todos: this.state.todos })
+  onAddTodo = () => {
+    this.props.store.dispatch( addTodo({ text: this.state.input }) )
   }
 
-  filterTodo = (f) => (e) => {
-    e.preventDefault()
-    this.setState({ filter: f })
+  onDeleteTodo = (id) => {
+    this.props.store.dispatch( delTodo(id) )
+  }
+
+  onUpdateTodoStatus = (id) => {
+    this.props.store.dispatch( updateStatus(id) )
+  }
+
+  onInputChange = (val) => {
+    this.props.store.dispatch( updateInput(val) )
+  }
+
+  onFilterTodo = (f) => {
+    this.props.store.dispatch( updateFilter(f) )
   }
 
   render = () => {
-    const todoProps = {
-      todos:  this.state.todos.filter(filter[this.state.filter]),
-      del:    this.deleteTodo,
-      update: this.updateTodoStatus
-    }
 
-    const classNameFilterAll = 'btn todoFilter' + (this.state.filter == 'filterAll' ? ' active' : '')
-    const classNameFilterTrue = 'btn btn-success todoFilter' + (this.state.filter == 'filterTrue' ? ' active' : '')
-    const classNameFilterFalse = 'btn btn-danger todoFilter' + (this.state.filter == 'filterFalse' ? ' active' : '')
+    const todoProps = {
+      todos:    this.state.todos.filter(filter[this.state.filter]),
+      onDelete: this.onDeleteTodo,
+      onUpdate: this.onUpdateTodoStatus
+    }
 
     return (
       <div className='container'>
         <h3>Todo-List</h3>
 
-        <form className='center' onSubmit={this.addTodo}>
-          <input className='formInput'/>
-          <button className='btn btn-primary btn-xs' onClick={this.addTodo}>Add</button>
-        </form>
+        <TodoInput onAdd={this.onAddTodo} onInputChange={this.onInputChange} inputValue={this.state.input} />
 
-        <button onClick={this.filterTodo('filterAll')} className={classNameFilterAll}>⭑</button>
-        <button onClick={this.filterTodo('filterTrue')} className={classNameFilterTrue}>⭑</button>
-        <button onClick={this.filterTodo('filterFalse')} className={classNameFilterFalse}>⭑</button>
+        <TodoFilter filterTodo={this.onFilterTodo} currentFilter={this.state.filter} />
 
         <div className='well center-block'>
           <TodoList {...todoProps} />
         </div>
+
       </div>
     )
   }
