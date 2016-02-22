@@ -131,7 +131,7 @@ describe('TodoFilters', () => {
   })
 
   it('has a div wrapper', () => {
-    expect(renderedDOM.tagName).toBe('DIV')
+    expect(renderedComponent.tagName).toBe('DIV')
   })
 
   it('has 3 buttons', () => {
@@ -145,8 +145,10 @@ describe('TodoFilters', () => {
   it('clicks all the buttons with filter option', () => {
       TestUtils.Simulate.click(buttons[0])
       expect(filterBool).toBe('filterAll')
+
       TestUtils.Simulate.click(buttons[1])
       expect(filterBool).toBe('filterTrue')
+
       TestUtils.Simulate.click(buttons[2])
       expect(filterBool).toBe('filterFalse')
   })
