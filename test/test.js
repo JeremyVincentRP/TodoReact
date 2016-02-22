@@ -111,9 +111,9 @@ describe('TodoInput', () => {
 })
 
 describe('TodoFilters', () => {
-  let filterBool = ''
+  let filterState = ''
 
-  const filterTodo = (f) => filterBool = f
+  const filterTodo = (f) => filterState = f
   const currentFilter = 'filterAll'
 
   const component = TestUtils.renderIntoDocument(
@@ -127,7 +127,8 @@ describe('TodoFilters', () => {
   const buttons = renderedComponent.children
 
   it('creates a TodoFilters', () => {
-    expect(renderedDOM).toNotBe(null, "the element does not exists")
+    expect(renderedDOM).toNotBe(null, "the root-wrapper does not exists")
+    expect(renderedComponent).toNotBe(null, "the component does not exists")
   })
 
   it('has a div wrapper', () => {
@@ -142,14 +143,18 @@ describe('TodoFilters', () => {
     }
   })
 
+  it('activate the first filter by default', () => {
+    expect(buttons[0].className).toBe('btn todoFilter active')
+  })
+
   it('clicks all the buttons with filter option', () => {
       TestUtils.Simulate.click(buttons[0])
-      expect(filterBool).toBe('filterAll')
+      expect(filterState).toBe('filterAll')
 
       TestUtils.Simulate.click(buttons[1])
-      expect(filterBool).toBe('filterTrue')
+      expect(filterState).toBe('filterTrue')
 
       TestUtils.Simulate.click(buttons[2])
-      expect(filterBool).toBe('filterFalse')
+      expect(filterState).toBe('filterFalse')
   })
 })
