@@ -20,9 +20,11 @@ import TodoInput from '../components/TodoInput.js'
 import TodoFilters from '../components/TodoFilters.js'
 import Todo from '../components/Todo.js'
 /* -------------------------------------------------------------------------- */
+/*                              STORE CREATION                                */
+/* -------------------------------------------------------------------------- */
 const store = createStore( todoReducer )
 /* -------------------------------------------------------------------------- */
-/*            CLASS BASED COMPONENT for stateless components tests            */
+/*             STATEFULL COMPONENT for stateless components render            */
 /*                                                                            */
 /*     because <div> maintain it's own state, we use it to wrap our own       */
 /*     stateless functionnal components                                       */
