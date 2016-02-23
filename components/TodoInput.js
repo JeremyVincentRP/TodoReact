@@ -4,7 +4,7 @@ const TodoInput = ({onAdd, onInputChange, inputValue}) => {
 
   const handleAdd = (e) => {
     e.preventDefault()
-    onAdd()
+    onAdd(inputValue)
   }
   const handleChange = (e) => {
     e.preventDefault()

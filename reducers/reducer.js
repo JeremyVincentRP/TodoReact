@@ -25,7 +25,7 @@ export default function reducer (state = initialState, action) {
     case DEL_TODO:
       return {
         ...state,
-        todos: state.todos.filter((todo) => todo.id === action.todo.id)
+        todos: state.todos.filter((todo) => todo.id !== action.todo.id)
       }
     case UPDATE_INPUT:
       return {

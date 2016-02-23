@@ -1,16 +1,12 @@
 import React,{PropTypes} from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import TodoList from './../components/TodoList'
 import TodoInput from './../components/TodoInput'
 import TodoFilter from './../components/TodoFilters'
 
-import {
-  addTodo,
-  delTodo,
-  updateStatus,
-  updateFilter,
-  updateInput
-} from '../actions'
+import * as TodoActionCreators from '../actions'
 
 import './TodoApp.css'
 
@@ -22,65 +18,36 @@ export const filter = {
 }
 /////////////////////////////////
 
-export class TodoApp extends React.Component {
-
-  state = {}
-
-  componentWillMount = () => {
-    const {store} = this.props
-    store.subscribe(() => {
-      const state = store.getState()
-      this.setState(
-        { todos: state.todos, filter: state.filter, input: state.input }
-      )
-    })
-    //////////////////////////////////////////////////////////////////
-    this.setState( store.getState() )
-    //////////////////////////////////////////////////////////////////
-  }
-
-  onAddTodo = () => {
-    this.props.store.dispatch( addTodo(this.state.input) )
-  }
-
-  onDeleteTodo = (todo) => {
-    this.props.store.dispatch( delTodo(todo) )
-  }
-
-  onUpdateTodoStatus = (todo) => {
-    this.props.store.dispatch( updateStatus(todo) )
-  }
-
-  onInputChange = (val) => {
-    this.props.store.dispatch( updateInput(val) )
-  }
-
-  onFilterTodo = (f) => {
-    this.props.store.dispatch( updateFilter(f) )
-  }
-
-  render = () => {
-
-    const todoProps = {
-      todos:    this.state.todos.filter(filter[this.state.filter]),
-      onDelete: this.onDeleteTodo,
-      onUpdate: this.onUpdateTodoStatus
-    }
+const TodoApp = props => {
+    const { input, todos, filter, dispatch, boundActions } = props
 
     return (
       <div className='container'>
         <h3>Todo-List</h3>
 
-        <TodoInput onAdd={this.onAddTodo} onInputChange={this.onInputChange} inputValue={this.state.input} />
+        <TodoInput onAdd={boundActions.addTodo} onInputChange={boundActions.updateInput} inputValue={input} />
 
-        <TodoFilter filterTodo={this.onFilterTodo} currentFilter={this.state.filter} />
+        <TodoFilter filterTodo={boundActions.updateFilter} currentFilter={filter} />
 
         <div className='well center-block'>
-          <TodoList {...todoProps} />
+          <TodoList todos={todos} onDelete={boundActions.delTodo} onUpdate={boundActions.updateStatus} />
         </div>
 
       </div>
     )
-  }
-
 }
+
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+    todos: state.todos.filter(filter[state.filter])
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    boundActions: bindActionCreators(TodoActionCreators, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoApp)
