@@ -18,9 +18,7 @@ export const filter = {
 }
 /////////////////////////////////
 
-const TodoApp = props => {
-    const { input, todos, filter, dispatch, boundActions } = props
-
+const TodoApp = ({ input, todos, filter, dispatch, boundActions }) => {
     return (
       <div className='container'>
         <h3>Todo-List</h3>
