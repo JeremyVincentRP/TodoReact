@@ -14,13 +14,22 @@ const store = createStore(
   todoReducer
 )
 
+const store2 = createStore(
+  todoReducer
+)
+
 ////////////////////////////////////////////////////////////////////////////////
 // Render TodoApp
 
 ReactDOM.render(
-  <Provider store={store}>
-    <TodoApp />
-  </Provider>,
+  <div>
+    <Provider store={store}>
+      <TodoApp />
+    </Provider>
+    <Provider store={store2}>
+      <TodoApp />
+    </Provider>
+  </div>,
   document.getElementById('content')
 )
 
