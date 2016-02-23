@@ -6,11 +6,13 @@ import {
   UPDATE_INPUT
 } from '../actions'
 
+// Initial state
 const initialState = {
   todos: [],
   filter: 'filterAll',
   input: ''
 }
+//////////////////////
 
 export default function reducer (state = initialState, action) {
   switch(action.type) {
@@ -23,7 +25,7 @@ export default function reducer (state = initialState, action) {
     case DEL_TODO:
       return {
         ...state,
-        todos: state.todos.filter((obj) => obj.id !== action.id)
+        todos: state.todos.filter((todo) => todo.id === action.todo.id)
       }
     case UPDATE_INPUT:
       return {
@@ -31,11 +33,13 @@ export default function reducer (state = initialState, action) {
         input: action.inputValue
       }
     case UPDATE_STATUS:
-      let todo = state.todos.find((obj) => obj.id === action.id)
-      todo.status = !todo.status
       return {
         ...state,
-        todos: state.todos
+        todos: state.todos.map((todo) => {
+          return (todo.id === action.todo.id)
+            ? action.todo
+            : todo
+          })
       }
     case UPDATE_FILTER:
       return {

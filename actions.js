@@ -6,30 +6,36 @@ export const UPDATE_FILTER = 'UPDATE_FILTER'
 
 let _todo_id = 0
 
-export function addTodo(todo) {
-  const make = (todo) => {
-    todo.id = _todo_id++
-    todo.createdAt = new Date()
-    todo.status = false
-    return todo
+const newTodo = function (text) {
+  return {
+    id: _todo_id++,
+    createdAt: new Date(),
+    status: false,
+    text
   }
+}
+
+export function addTodo(text) {
   return {
     type: ADD_TODO,
-    todo: make(todo)
+    todo: newTodo(text)
   }
 }
 
-export function delTodo(todoId) {
+export function delTodo(todo) {
   return {
     type: DEL_TODO,
-    id: todoId
+    todo
   }
 }
 
-export function updateStatus(todoId) {
+export function updateStatus(todo) {
   return {
     type: UPDATE_STATUS,
-    id: todoId
+    todo: {
+      ...todo,
+      status: !todo.status
+    }
   }
 }
 

@@ -2,21 +2,21 @@ import React,{PropTypes} from 'react'
 
 const Todo = ({todo, onDelete, onUpdate}) => {
 
-  const handleDelete = (id) => (e) => {
+  const handleDelete = (e) => {
     e.preventDefault()
-    onDelete(id)
+    onDelete(todo)
   }
-  const handleUpdate = (id) => (e) => {
+  const handleUpdate = (e) => {
     e.preventDefault()
-    onUpdate(id)
+    onUpdate(todo)
   }
 
   status = todo.status ? 'bg-success' : 'bg-danger'
 
   return (
     <p className={status}>
-      <button className='btn btn-danger btn-sm' onClick={handleDelete(todo.id)}>✖</button>
-      <button className='btn btn-info btn-sm' onClick={handleUpdate(todo.id)}>⟳</button>
+      <button className='btn btn-danger btn-sm' onClick={handleDelete}>✖</button>
+      <button className='btn btn-info btn-sm' onClick={handleUpdate}>⟳</button>
       {todo.text}
     </p>
   )

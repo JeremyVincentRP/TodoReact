@@ -16,8 +16,8 @@ import './TodoApp.css'
 
 // Filters
 export const filter = {
-  filterAll: obj => true,
-  filterTrue: obj => obj.status === true,
+  filterAll:   obj => true,
+  filterTrue:  obj => obj.status === true,
   filterFalse: obj => obj.status === false
 }
 /////////////////////////////////
@@ -35,21 +35,20 @@ export class TodoApp extends React.Component {
       )
     })
     //////////////////////////////////////////////////////////////////
-    // In theory this is useless
     this.setState( store.getState() )
     //////////////////////////////////////////////////////////////////
   }
 
   onAddTodo = () => {
-    this.props.store.dispatch( addTodo({ text: this.state.input }) )
+    this.props.store.dispatch( addTodo(this.state.input) )
   }
 
-  onDeleteTodo = (id) => {
-    this.props.store.dispatch( delTodo(id) )
+  onDeleteTodo = (todo) => {
+    this.props.store.dispatch( delTodo(todo) )
   }
 
-  onUpdateTodoStatus = (id) => {
-    this.props.store.dispatch( updateStatus(id) )
+  onUpdateTodoStatus = (todo) => {
+    this.props.store.dispatch( updateStatus(todo) )
   }
 
   onInputChange = (val) => {
