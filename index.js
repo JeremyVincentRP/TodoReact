@@ -14,6 +14,7 @@ const store = createStore(
   todoReducer
 )
 
+// "Never do that" says the doc
 const store2 = createStore(
   todoReducer
 )

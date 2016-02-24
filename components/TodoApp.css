@@ -1,0 +1,19 @@
+.formInput {
+  margin: 5px 5px 5px 0 !important;
+}
+
+.todo p {
+  overflow-wrap: break-word;
+}
+
+.todo span {
+  margin-left: 5px;
+}
+
+.todo button {
+  margin: 0 2px;
+}
+
+.todoFilter {
+  margin: 0 5px 5px 0;
+}
