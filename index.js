@@ -14,30 +14,43 @@ import {addTodo, fetchTodos} from './actions'
 // Store creation
 
 const store = createStore(
+  // combineReducers({
+  //   todoReducer,
+  //   todoReducer
+  // }),
   todoReducer,
   applyMiddleware(
     thunkMiddleware
   )
 )
 
-store.dispatch(fetchTodos('/todos'))
+// // Dispatch Async fetch
+// store.dispatch(
+//   fetchTodos('/todos')
+// )
 
 ////////////////////////////////////////////////////////////////////////////////
 // Render Wrapper
 //
-// class Wrapper extend React.Component {
-//   constructor () {
-//
-//   }
-// }
-//
+class Wrapper extends React.Component {
+  render = () => {
+    console.log(this.props);
+    return (
+      <div>
+        <TodoApp />
+        <TodoApp />
+      </div>
+    )
+  }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Render TodoApp
 
 ReactDOM.render(
   <div>
     <Provider store={store}>
-      <TodoApp />
+      <Wrapper />
     </Provider>
   </div>,
   document.getElementById('content')
