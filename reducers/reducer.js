@@ -3,7 +3,8 @@ import {
   DEL_TODO,
   UPDATE_STATUS,
   UPDATE_FILTER,
-  UPDATE_INPUT
+  UPDATE_INPUT,
+  MERGE
 } from '../actions'
 
 // Initial state
@@ -45,6 +46,11 @@ export default function reducer (state = initialState, action) {
       return {
         ...state,
         filter: action.filter
+      }
+    case MERGE:
+      return {
+        ...state,
+        todos: [...state.todos, ...action.todos]
       }
     default:
       return state

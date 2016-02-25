@@ -8,7 +8,7 @@ import TodoFilter from './../components/TodoFilters'
 
 import * as TodoActionCreators from '../actions'
 
-import './TodoApp.css'
+import './TodoApp.less'
 
 // Filters
 export const filter = {
