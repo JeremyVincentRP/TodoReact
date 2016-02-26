@@ -16,9 +16,11 @@ app.get("/", function(req, res) {
 
 app.get("/todos", function (req, res) {
   var data = [
-      { id: 0, text: "Hello", status: false },
-      { id: 1, text: "World", status: true },
-      { id: 2, text:     "!", status: false }
+      { id: 0, text:  "Hello", status: false },
+      { id: 1, text:  "World", status: true },
+      { id: 2, text:      "!", status: false },
+      { id: 3, text:   "from", status: true },
+      { id: 4, text: "server", status: false }
   ]
   res.setHeader('Content-Type', 'application/json')
   res.send(JSON.stringify(data))

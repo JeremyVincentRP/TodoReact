@@ -28,6 +28,7 @@
     "redux": "^3.3.1",
     "redux-thunk": "^1.0.3",
     "redux-undo": "^1.0.0-beta2",
+    "reselect": "^2.0.3",
     "style-loader": "^0.13.0"
   },
   "devDependencies": {
