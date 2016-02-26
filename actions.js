@@ -98,14 +98,13 @@ function shouldFetchTodos(state) {
 
 export function fetchTodosIfNeeded(url) {
   return (dispatch, getState) => {
-    dispatch(loadingTodos())
     if (shouldFetchTodos(getState().todos)) {
+      dispatch(loadingTodos())
       setTimeout(() => {
         dispatch(fetchTodos(url))
         dispatch(loadedTodos())
       }, 3000)
     } else {
-      dispatch(loadedTodos())
       Promise.resolve()
     }
   }

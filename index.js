@@ -25,7 +25,7 @@ const store = createStore(
 )
 
 // Dispatch an addTodo
-// store.dispatch(addTodo('b2c', 0))
+store.dispatch(addTodo('b2c', 0))
 
 // Dispatch Async fetch
 store.dispatch(fetchTodosIfNeeded('/todos'))
