@@ -4,6 +4,8 @@ import {
   UPDATE_STATUS,
   UPDATE_FILTER,
   UPDATE_INPUT,
+  LOADED_TODOS,
+  LOADING_TODOS,
   MERGE
 } from '../actions'
 
@@ -11,7 +13,8 @@ import {
 const initialState = {
   todos: [],
   filter: 'filterAll',
-  input: ''
+  input: '',
+  loading: false
 }
 //////////////////////
 
@@ -51,6 +54,16 @@ export default function reducer (state = initialState, action) {
       return {
         ...state,
         todos: [...state.todos, ...action.todos]
+      }
+    case LOADING_TODOS:
+      return {
+        ...state,
+        loading: true
+      }
+    case LOADED_TODOS:
+      return {
+        ...state,
+        loading: false
       }
     default:
       return state

@@ -2,7 +2,7 @@ import React,{PropTypes} from 'react'
 
 import Todo from './Todo'
 
-const TodoList = ({todos, onDelete, onUpdate}) => {
+const TodoList = ({ todos, onDelete, onUpdate}) => {
 
   const createItem = (item) => {
     return <Todo key={item.id} todo={item} onDelete={onDelete} onUpdate={onUpdate} />

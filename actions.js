@@ -4,28 +4,37 @@ export const UPDATE_STATUS = 'UPDATE_STATUS'
 export const UPDATE_INPUT = 'UPDATE_INPUT'
 export const UPDATE_FILTER = 'UPDATE_FILTER'
 export const MERGE = 'MERGE'
+export const LOADING_TODOS = 'LOADING_TODOS'
+export const LOADED_TODOS = 'LOADED_TODOS'
 
-let _todo_id = 0
+let __id = 42
 
 const newTodo = function (text) {
   return {
-    id: _todo_id++,
+    id: __id++,
     createdAt: new Date(),
     status: false,
     text
   }
 }
 
-export function addTodo(text) {
+function _addTodo(text) {
   return {
-    type: ADD_TODO,
+    type: 'ADD_TODO',
     todo: newTodo(text)
+  }
+}
+
+export function addTodo(text) {
+  return (dispatch, getState) => {
+    dispatch({type:'INCR'})
+    dispatch(_addTodo(text))
   }
 }
 
 export function addTodos(tab) {
   return {
-    type: MERGE,
+    type: 'MERGE',
     todos: tab
   }
 }
@@ -61,10 +70,43 @@ export function updateFilter(f) {
   }
 }
 
+function loadingTodos() {
+  return {
+    type: LOADING_TODOS
+  }
+}
+
+function loadedTodos() {
+  return {
+    type: LOADED_TODOS
+  }
+}
+
 export function fetchTodos(url) {
   return dispatch => {
     return fetch(url)
       .then(response => response.json())
       .then(json => dispatch(addTodos(json)))
+  }
+}
+
+function shouldFetchTodos(state) {
+  return state.todos.length == 0
+    ? true
+    : false
+}
+
+export function fetchTodosIfNeeded(url) {
+  return (dispatch, getState) => {
+    dispatch(loadingTodos())
+    if (shouldFetchTodos(getState().todos)) {
+      setTimeout(() => {
+        dispatch(fetchTodos(url))
+        dispatch(loadedTodos())
+      }, 3000)
+    } else {
+      dispatch(loadedTodos())
+      Promise.resolve()
+    }
   }
 }

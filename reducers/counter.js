@@ -1,3 +1,6 @@
+export const INCR = 'INCR'
+export const DECR = 'DECR'
+
 export default function counter(state = 0, action) {
   switch (action.type) {
     case 'INCR':

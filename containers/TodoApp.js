@@ -18,10 +18,19 @@ export const filter = {
 }
 /////////////////////////////////
 
-const TodoApp = ({ input, todos, filter, boundActions }) => {
+const TodoApp = ({ input, todos, filter, loading, boundActions }) => {
+
+    const loadingElement = () => {
+      return loading
+        ? <div>Loading Todos ...</div>
+        : <div>Todos loaded</div>
+    }
+
     return (
       <div className='container'>
         <h3>Todo-List</h3>
+
+        {loadingElement()}
 
         <TodoInput onAdd={boundActions.addTodo} onInputChange={boundActions.updateInput} inputValue={input} />
 
@@ -35,10 +44,10 @@ const TodoApp = ({ input, todos, filter, boundActions }) => {
     )
 }
 
-const mapStateToProps = (id, state) => {
+const mapStateToProps = (state) => {
   return {
-    ...state[id],
-    todos: state[id].todos.filter(filter[state[id].filter])
+    ...state.todos,
+    todos: state.todos.todos.filter(filter[state.todos.filter])
   }
 }
 
@@ -48,6 +57,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default function (id) {
-  return connect(mapStateToProps.bind(null, id), mapDispatchToProps)(TodoApp)
-}
+export default connect(mapStateToProps, mapDispatchToProps)(TodoApp)
