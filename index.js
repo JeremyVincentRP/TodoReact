@@ -14,11 +14,10 @@ import {addTodo, fetchTodos} from './actions'
 // Store creation
 
 const store = createStore(
-  // combineReducers({
-  //   todoReducer,
-  //   todoReducer
-  // }),
-  todoReducer,
+  combineReducers({
+    '1': todoReducer,
+    '2': todoReducer
+  }),
   applyMiddleware(
     thunkMiddleware
   )
@@ -34,11 +33,12 @@ const store = createStore(
 //
 class Wrapper extends React.Component {
   render = () => {
-    console.log(this.props);
+    const TodoApp1 = TodoApp('1')
+    const TodoApp2 = TodoApp('2')
     return (
       <div>
-        <TodoApp />
-        <TodoApp />
+        <TodoApp1 />
+        <TodoApp2 />
       </div>
     )
   }

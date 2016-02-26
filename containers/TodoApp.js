@@ -18,7 +18,7 @@ export const filter = {
 }
 /////////////////////////////////
 
-const TodoApp = ({ input, todos, filter, dispatch, boundActions }) => {
+const TodoApp = ({ input, todos, filter, boundActions }) => {
     return (
       <div className='container'>
         <h3>Todo-List</h3>
@@ -35,10 +35,10 @@ const TodoApp = ({ input, todos, filter, dispatch, boundActions }) => {
     )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (id, state) => {
   return {
-    ...state,
-    todos: state.todos.filter(filter[state.filter])
+    ...state[id],
+    todos: state[id].todos.filter(filter[state[id].filter])
   }
 }
 
@@ -48,4 +48,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoApp)
+export default function (id) {
+  return connect(mapStateToProps.bind(null, id), mapDispatchToProps)(TodoApp)
+}
