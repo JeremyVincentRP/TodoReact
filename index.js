@@ -9,7 +9,7 @@ import todos from './reducers/reducer'
 import counter from './reducers/counter'
 import TodoApp from './containers/TodoApp'
 
-import { addTodo, fetchTodosIfNeeded } from './actions'
+import { addTodo, fetchTodosIfNeeded } from './actions/actions'
 
 ////////////////////////////////////////////////////////////////////////////////
 // Store creation
@@ -25,7 +25,7 @@ const store = createStore(
 )
 
 // Dispatch an addTodo
-store.dispatch(addTodo('b2c', 0))
+// store.dispatch(addTodo('b2c', 0))
 
 // Dispatch Async fetch
 store.dispatch(fetchTodosIfNeeded('/todos'))

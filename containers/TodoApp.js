@@ -6,7 +6,7 @@ import TodoList from './../components/TodoList'
 import TodoInput from './../components/TodoInput'
 import TodoFilter from './../components/TodoFilters'
 
-import * as TodoActionCreators from '../actions'
+import * as TodoActionCreators from '../actions/actions'
 import todoSelector from '../selectors/todoSelector'
 
 import './TodoApp.less'

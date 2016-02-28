@@ -7,7 +7,7 @@ import {
   LOADED_TODOS,
   LOADING_TODOS,
   MERGE
-} from '../actions'
+} from '../actions/actions'
 
 // Initial state
 const initialState = {
