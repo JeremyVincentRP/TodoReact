@@ -1,6 +1,16 @@
 var path = require('path')
 var webpack = require('webpack')
 
+var PureScriptWebpackPlugin = require('purescript-webpack-plugin')
+
+var src = ['bower_components/purescript-*/src/**/*.purs', 'src/**/*.purs']
+var ffi = ['bower_components/purescript-*/src/**/*.js', 'src/**/*FFI.js']
+
+var modulesDirectories = [
+    'node_modules',
+    'bower_components'
+]
+
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
@@ -15,8 +25,13 @@ module.exports = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new PureScriptWebpackPlugin({src: src, ffi: ffi})
   ],
+  resolve: {
+    modulesDirectories: modulesDirectories,
+    extensions: [ '', '.js', '.purs']
+  },
   module: {
     loaders: [{
       test: /\.js?$/,
@@ -29,6 +44,9 @@ module.exports = {
     }, {
       test: /\.less$/,
       loader: 'style!css!autoprefixer!less'
+    }, {
+      test: /\.purs$/,
+      loader: 'purs-loader'
     }]
   }
 }
